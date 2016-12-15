@@ -61,13 +61,57 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%;
+      
+     
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
 
   </style>
 
   <script>
+    const secondHand = document.querySelector('.second-hand');
+    const minutesHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
 
+    function setDate(){
+      const now = new Date();
 
+      const hour = now.getHours();
+      const hourDegress = ((hour / 60) * 360) + 90;
+      if((hour == 60) || (hour == 0)){
+        hourHand.style.transition = `none`;
+        hourHand.style.transitionTimingFunction = `none`;
+      }else{
+        hourHand.style.transition = `0.5s`;
+        hourHand.style.transitionTimingFunction = `cubic-bezier(0.1, 2.7, 0.58, 1)`;
+      }
+      hourHand.style.transform = `rotate(${hourDegress}deg)`;
+      
+      const minutes = now.getMinutes();
+      const minutesDegress = ((minutes / 60) * 360) + 90;
+      if((minutes == 60) || (minutes == 0)){
+        minutesHand.style.transition = `none`;
+        minutesHand.style.transitionTimingFunction = `none`;
+      }else{
+        minutesHand.style.transition = `0.5s`;
+        minutesHand.style.transitionTimingFunction = `cubic-bezier(0.1, 2.7, 0.58, 1)`;
+      }
+      minutesHand.style.transform = `rotate(${minutesDegress}deg)`;
+      
+      const seconds = now.getSeconds();
+      const secondsDegress = ((seconds / 60) * 360) + 90;
+      if((seconds == 60) || (seconds == 0)){
+        secondHand.style.transition = `none`;
+        secondHand.style.transitionTimingFunction = `none`;
+      }else{
+        secondHand.style.transition = `0.5s`;
+        secondHand.style.transitionTimingFunction = `cubic-bezier(0.1, 2.7, 0.58, 1)`;
+      }
+      secondHand.style.transform = `rotate(${secondsDegress}deg)`;
+    }
+
+    setInterval(setDate, 1000);
   </script>
 </body>
 </html>
